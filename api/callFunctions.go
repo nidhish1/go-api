@@ -8,9 +8,9 @@ import (
 	"net/http"
 	"github.com/gorilla/mux"
 	"github.com/nidhish1/go-api/models"
+	"github.com/nidhish1/go-api/dbCon"
 
 )
-
 
 
 
@@ -18,7 +18,7 @@ import (
 func getPosts(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	var posts []models.Post
-	result, err := db.Query("SELECT id, title from posts")
+	result, err := dbCon.Db.Query("SELECT id, title from posts")
 	if err != nil {
 		panic(err.Error())
 	}
@@ -35,7 +35,7 @@ func getPosts(w http.ResponseWriter, r *http.Request) {
 }
 func createPost(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	stmt, err := db.Prepare("INSERT INTO posts(title) VALUES(?)")
+	stmt, err := dbCon.Db.Prepare("INSERT INTO posts(title) VALUES(?)")
 	if err != nil {
 		panic(err.Error())
 	}
@@ -55,7 +55,7 @@ func createPost(w http.ResponseWriter, r *http.Request) {
 func getPost(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
-	result, err := db.Query("SELECT id, title FROM posts WHERE id = ?", params["id"])
+	result, err := dbCon.Db.Query("SELECT id, title FROM posts WHERE id = ?", params["id"])
 	if err != nil {
 		panic(err.Error())
 	}
@@ -72,7 +72,7 @@ func getPost(w http.ResponseWriter, r *http.Request) {
 func updatePost(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
-	stmt, err := db.Prepare("UPDATE posts SET title = ? WHERE id = ?")
+	stmt, err := dbCon.Db.Prepare("UPDATE posts SET title = ? WHERE id = ?")
 	if err != nil {
 		panic(err.Error())
 	}
@@ -92,7 +92,7 @@ func updatePost(w http.ResponseWriter, r *http.Request) {
 func deletePost(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
-	stmt, err := db.Prepare("DELETE FROM posts WHERE id = ?")
+	stmt, err := dbCon.Db.Prepare("DELETE FROM posts WHERE id = ?")
 	if err != nil {
 		panic(err.Error())
 	}

@@ -1,7 +1,12 @@
 package dbCon
 
+import (
+	"database/sql"
+	_"github.com/go-sql-driver/mysql"
+)
+
 var (
 
-	db *sql.DB
-	err error
+	Db *sql.DB
+	Err error
 ) 

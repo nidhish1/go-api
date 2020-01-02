@@ -10,13 +10,15 @@ import (
 
 
 
-
+var err error
 func main() {
-	dbCon.db, dbCon.err = sql.Open("mysql", "docker:docker@tcp(sqlDB)/mysql")
+	dbCon.Db, err = sql.Open("mysql", "docker:docker@tcp(sqlDB)/mysql")
 	if err != nil {
 		panic(err.Error())
 	}
-	defer db.Close()
+	defer dbCon.Db.Close()
+	
+	
 	router := mux.NewRouter()
 	router.HandleFunc("/posts", api.GetPosts).Methods("GET")
 	router.HandleFunc("/posts", api.CreatePost).Methods("POST")
