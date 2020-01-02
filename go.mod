@@ -1,5 +1,5 @@
 
-module github.com/nidhish1/go-api/models
+module github.com/nidhish1/go-api/
 
 require (
 	github.com/go-redis/redis v6.14.2+incompatible
