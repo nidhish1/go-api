@@ -13,6 +13,8 @@ import (
 
 
 
+
+
 func getPosts(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	var posts []models.Post
