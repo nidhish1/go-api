@@ -7,14 +7,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-
+	"github.com/nidhish1/go-api/models"
 )
 
 
-type Post struct {
-	ID string `json:"id"`
-	Title string `json:"title"`
-}
 
 var db *sql.DB
 var err error
@@ -35,14 +31,14 @@ func main() {
 
 func getPosts(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	var posts []Post
+	var posts []models.Post
 	result, err := db.Query("SELECT id, title from posts")
 	if err != nil {
 		panic(err.Error())
 	}
 	defer result.Close()
 	for result.Next() {
-		var post Post
+		var post models.Post
 		err := result.Scan(&post.ID, &post.Title)
 		if err != nil {
 			panic(err.Error())
@@ -78,7 +74,7 @@ func getPost(w http.ResponseWriter, r *http.Request) {
 		panic(err.Error())
 	}
 	defer result.Close()
-	var post Post
+	var post models.Post
 	for result.Next() {
 		err := result.Scan(&post.ID, &post.Title)
 		if err != nil {
