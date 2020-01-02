@@ -10,6 +10,7 @@ RUN apk update && apk upgrade && \
 
 RUN go get -u github.com/go-sql-driver/mysql
 RUN go get -u github.com/gorilla/mux
+RUN go get -u github.com/nidhish1/go-api/models
 # Add Maintainer Info
 LABEL maintainer="nid"
 
