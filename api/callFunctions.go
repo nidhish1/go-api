@@ -12,7 +12,24 @@ import (
 
 )
 
-
+func lk (w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	var posts []models.Post
+	result, err := dbCon.Db.Query("SELECT id, title from posts")
+	if err != nil {
+		panic(err.Error())
+	}
+	defer result.Close()
+	for result.Next() {
+		var post models.Post
+		err := result.Scan(&post.ID, &post.Title)
+		if err != nil {
+			panic(err.Error())
+		}
+		posts = append(posts, post)
+	}
+	json.NewEncoder(w).Encode(posts)
+}
 
 
 func GetPosts(w http.ResponseWriter, r *http.Request) {
