@@ -15,7 +15,7 @@ import (
 
 
 
-func getPosts(w http.ResponseWriter, r *http.Request) {
+func GetPosts(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	var posts []models.Post
 	result, err := dbCon.Db.Query("SELECT id, title from posts")
@@ -33,7 +33,7 @@ func getPosts(w http.ResponseWriter, r *http.Request) {
 	}
 	json.NewEncoder(w).Encode(posts)
 }
-func createPost(w http.ResponseWriter, r *http.Request) {
+func CreatePost(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	stmt, err := dbCon.Db.Prepare("INSERT INTO posts(title) VALUES(?)")
 	if err != nil {
@@ -52,7 +52,7 @@ func createPost(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Fprintf(w, "New post was created")
 }
-func getPost(w http.ResponseWriter, r *http.Request) {
+func GetPost(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
 	result, err := dbCon.Db.Query("SELECT id, title FROM posts WHERE id = ?", params["id"])
@@ -69,7 +69,7 @@ func getPost(w http.ResponseWriter, r *http.Request) {
 	}
 	json.NewEncoder(w).Encode(post)
 }
-func updatePost(w http.ResponseWriter, r *http.Request) {
+func UpdatePost(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
 	stmt, err := dbCon.Db.Prepare("UPDATE posts SET title = ? WHERE id = ?")
@@ -89,7 +89,7 @@ func updatePost(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Fprintf(w, "Post with ID = %s was updated", params["id"])
 }
-func deletePost(w http.ResponseWriter, r *http.Request) {
+func DeletePost(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
 	stmt, err := dbCon.Db.Prepare("DELETE FROM posts WHERE id = ?")
