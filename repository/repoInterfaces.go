@@ -2,18 +2,19 @@ package repository
 
 import (
 	
-	"encoding/json"
+
 	"fmt"
-	"io/ioutil"
-	"github.com/nidhish1/go-api/models"
-	"github.com/nidhish1/go-api/dbCon"
-	
+
+
+	"github.com/nidhish1/go-api/dbCon"	
+	"github.com/nidhish1/go-api/models"	
 )
 
 
-func models.Journey() [] getJourney(jid string) {
-	var journeys []models.Journey
-	result, err := dbCon.Db.Query("SELECT JourneyId, OrderRequestID, Status from Lynk_Journey where JourneyId =  "+ jid)
+func GetJourney(jid string) [] models.Journey  {
+	var journeys [] models.Journey
+	result, err := dbCon.Db.Query("SELECT JourneyId, OrderRequestID, Status from Lynk_Journey where JourneyId = " + " '"+jid + " ' ")
+
 	if err != nil {
 		panic(err.Error())
 	}

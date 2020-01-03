@@ -20,11 +20,12 @@ func main() {
 	
 	
 	router := mux.NewRouter()
-	router.HandleFunc("/posts", api.GetPosts).Methods("GET")
-	router.HandleFunc("/posts", api.CreatePost).Methods("POST")
-	router.HandleFunc("/posts/{id}", api.GetPost).Methods("GET")
-	router.HandleFunc("/posts/{id}", api.UpdatePost).Methods("PUT")
-	router.HandleFunc("/posts/{id}", api.DeletePost).Methods("DELETE")
+	router.HandleFunc("/journey/{jid}", api.JourneyDetails).Methods("GET")
+
+	//router.HandleFunc("/posts", api.CreatePost).Methods("POST")
+	//router.HandleFunc("/posts/{id}", api.GetPost).Methods("GET")
+	//router.HandleFunc("/posts/{id}", api.UpdatePost).Methods("PUT")
+	//router.HandleFunc("/posts/{id}", api.DeletePost).Methods("DELETE")
 	http.ListenAndServe(":8000", router)
 }
 
